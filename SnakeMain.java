@@ -6,20 +6,18 @@ public class SnakeMain {
             return;
         }
 
-        int n = Integer.parseInt(args[0]);
-        int m = Integer.parseInt(args[1]);
+        int width = Integer.parseInt(args[0]);
+        int height = Integer.parseInt(args[1]);
 
-        SnakeModel model = new SnakeModel(n, m);
-        SnakeView view = new SnakeView(n, m);
-        
-        view.draw(model);
+        if (width <5 || width >100 || height <5 ||  height > 100){
+            System.out.println("Error: Width og height skal være melem 5 og 100");
+            return;
+        } 
 
-        // Kører indtil man trykker på en tast
-        while (!StdDraw.hasNextKeyTyped()) {
-            try {
-                Thread.sleep(20);
-            } catch (Exception e) {
-            }
-        }
+        SnakeModel model = new SnakeModel(width, height);
+        SnakeView view = new SnakeView(width, height);
+        SnakeController controller = new SnakeController(model, view);
+
+        controller.startGame();
     }
 }
