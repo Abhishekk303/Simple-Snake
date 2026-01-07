@@ -107,6 +107,5 @@ public class SnakeController {
     private void gameOver(){
         gameRunning = false;
         System.out.println("Game Over!");
-    }       
-            
+    }        
 }
