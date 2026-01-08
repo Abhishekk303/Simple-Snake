@@ -26,7 +26,8 @@ public class SnakeController {
             moveSnake();
             
             if (checkCollision()){
-                gameOver();
+                gameRunning = false;
+                showGameOverScreen();
                 break;
             }
 
@@ -38,7 +39,7 @@ public class SnakeController {
         }
     }
 
-    private void handleInput(){
+    private void handleInput(){ // WASD-tasterne for at bevæge slangen i adskillige retninger.
         if (StdDraw.hasNextKeyTyped()){
             char key = StdDraw.nextKeyTyped();
             
@@ -104,8 +105,23 @@ public class SnakeController {
         return false;
     }
 
-    private void gameOver(){
-        gameRunning = false;
-        System.out.println("Game Over!");
-    }        
+    private void showGameOverScreen(){
+            try {
+                Thread.sleep(800);
+            }catch (InterruptedException e){}
+
+            StdDraw.clear(StdDraw.BLACK);
+
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD,33));
+            StdDraw.text(model.bredde / 2.0, model.hoejde / 2.0 + 1, "GAME OVER!");
+
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN,28));
+            StdDraw.text(model.bredde /2.0, model.hoejde / 2.0 - 0.5, "Score:" + score);
+            
+            StdDraw.show();            
+
+
+    }
 }
