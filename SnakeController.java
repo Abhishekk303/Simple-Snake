@@ -117,7 +117,7 @@ public class SnakeController {
             StdDraw.text(model.bredde / 2.0, model.hoejde / 2.0 + 1, "GAME OVER!");
 
             StdDraw.setPenColor(StdDraw.RED);
-            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN,28));
+            StdDraw.setFont(new java.awt.Font("Times New Roman", java.awt.Font.PLAIN,28));
             StdDraw.text(model.bredde /2.0, model.hoejde / 2.0 - 0.5, "Score:" + score);
             
             StdDraw.show();            
