@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 
 public class SnakeView {
     private int n, m;
@@ -14,7 +15,7 @@ public class SnakeView {
         StdDraw.show(0);
     }
 
-    public void draw(SnakeModel model) {
+    public void draw(SnakeModel model, boolean isPaused) {
         StdDraw.clear(Color.WHITE);
 
         // Tegning af slangen
@@ -27,6 +28,22 @@ public class SnakeView {
         StdDraw.setPenColor(Color.RED);
         StdDraw.filledCircle(model.food[0] + 0.5, model.food[1] + 0.5, 0.3);
 
+        StdDraw.setPenColor(Color.RED);
+        StdDraw.filledCircle(model.food[0]+ 0.5, model.food[1]+0.5,0.3);
+
+        if (isPaused){
+            drawPauseOverlay();
+        }
+
         StdDraw.show();
+    }
+
+    private void drawPauseOverlay(){
+        StdDraw.setPenColor(new Color(0,0,0,150));
+        StdDraw.filledRectangle(n/2.0, m/2.0, n/2.0, m/2.0);
+
+        StdDraw.setPenColor(Color.YELLOW);
+        StdDraw.setFont(new Font("Arial", Font.BOLD, 36));
+        StdDraw.text(n/2.0,m/2.0+1,"PAUSE");
     }
 }

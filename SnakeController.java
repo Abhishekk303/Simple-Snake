@@ -5,6 +5,7 @@ public class SnakeController {
     private boolean gameRunning = true;
     private int score;
     private boolean hasEaten;
+    private boolean isPaused = false;
 
     public SnakeController(SnakeModel model, SnakeView view){
         this.model = model;
@@ -12,6 +13,7 @@ public class SnakeController {
         this.score = 0;
         this.hasEaten = false;
         this.gameRunning = true;
+        this.isPaused = false;
 
         model.retning = 3; // Snaken starter med at bevæge sig mod venstre fordi opgaven beder om det.
     }
@@ -19,19 +21,27 @@ public class SnakeController {
     public void startGame(){
         System.out.println("Simple Snake Game");
         System.out.println("Move: W = Op,S = Ned, A = Venstre, D = Højre");    
+        System.out.println("For at pause/forsætte spillet tryk P");
 
+        view.draw(model,isPaused);
+    
         while(gameRunning){
-            handleInput();
-            checkFood();
-            moveSnake();
+            checkPauseInput();
+
+            if (!isPaused){
+                handleInput();
+                checkFood();
+                moveSnake();
             
-            if (checkCollision()){
-                gameRunning = false;
-                showGameOverScreen();
-                break;
+                if (checkCollision()){
+                    gameRunning = false;
+                    showGameOverScreen();
+                    break;
+                }
             }
 
-            view.draw(model);
+            view.draw(model,isPaused);
+
             try {
                 Thread.sleep(200);
             } catch (InterruptedException e) {
@@ -39,6 +49,27 @@ public class SnakeController {
         }
     }
 
+    private void checkPauseInput(){
+        if (StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_P)){
+            togglePause();
+
+            while (StdDraw.isKeyPressed(java.awt.event.KeyEvent.VK_P)){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+    }
+
+    public void togglePause(){
+        isPaused =! isPaused;
+        if (isPaused){
+            System.out.println("Spillet er pauset.");
+            System.out.println("Tryk P igen for at forsætte spillet.");
+        }
+    }
+    
     private void handleInput(){ // WASD-tasterne for at bevæge slangen i adskillige retninger.
         if (StdDraw.hasNextKeyTyped()){
             char key = StdDraw.nextKeyTyped();
