@@ -32,6 +32,11 @@ public class SnakeController {
         while(gameRunning){
             checkPauseInput();
 
+            if (checkVictory()){
+                gameWon();
+                break;
+            }
+
             if (!isPaused){
                 handleInput();
                 checkFood();
@@ -224,5 +229,18 @@ public class SnakeController {
         model.food();
 
         startGame();
+    }
+    
+    private boolean checkVictory(){
+        int maxCells = model.bredde * model.hoejde;
+        return model.slange.size() >= maxCells;
+    }
+
+    private void gameWon(){
+        model.victory = true;
+        view.draw(model, isPaused,score);
+        view.displayVictory(score);
+        gameRunning = false;
+        System.out.println("Tillykke med sejren! Du gennemførte vores spil!");
     }
 }

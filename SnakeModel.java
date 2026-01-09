@@ -6,6 +6,7 @@ public class SnakeModel {
     public ArrayList<int[]> slange; 
     public int[] food;
     public int retning;
+    public boolean victory = false;
 
     private Random rand = new Random();
 

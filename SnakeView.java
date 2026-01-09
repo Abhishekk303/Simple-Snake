@@ -58,4 +58,15 @@ public class SnakeView {
         StdDraw.setFont(new Font("Arial", Font.BOLD,16));
         StdDraw.textLeft(0.5,m-0.5,"Score:" + score);
     }
+
+    public void displayVictory(int score) {
+        StdDraw.setPenColor(StdDraw.BOOK_BLUE);
+
+        StdDraw.text(n/2.0, m/2.0, "DU VANDT!");
+
+        StdDraw.text(n/2.0, (m/2.0)-1, "Tillyke du spiste så mange æbler: " + score);
+
+        StdDraw.show();
+
+    }
 }
