@@ -176,7 +176,7 @@ public class SnakeController {
             }
 
             StdDraw.setPenColor(StdDraw.YELLOW);
-            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 28));
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
             StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
             
             StdDraw.setPenColor(StdDraw.WHITE);
