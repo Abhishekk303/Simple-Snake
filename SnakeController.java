@@ -141,9 +141,12 @@ public class SnakeController {
     }
 
     private void showGameOverScreen(){
+        boolean wasNewHighScore = false;
         if (score>highscore){
             highscore = score;
+            wasNewHighScore = true;
             isNewHighScore = true;
+
             System.out.println("Ny highscore:" + highscore + "!");
         } else{
             isNewHighScore = false;
@@ -155,7 +158,7 @@ public class SnakeController {
 
             double centerX = model.bredde/2.0;
             double centerY = model.hoejde/2.0;
-            
+
             StdDraw.clear(StdDraw.BLACK);
 
             StdDraw.setPenColor(StdDraw.RED);
@@ -166,15 +169,22 @@ public class SnakeController {
             StdDraw.setFont(new java.awt.Font("Times New Roman", java.awt.Font.PLAIN,28));
             StdDraw.text(model.bredde /2.0, model.hoejde / 2.0 - 0.5, "Score:" + score);
             
-            if (isNewHighScore){
+            if (wasNewHighScore){
                 StdDraw.setPenColor(StdDraw.YELLOW);
                 StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 28));
                 StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
-                StdDraw.text(centerX,centerY - 2, "Du har nu følgende muligheder:");
-                StdDraw.text(centerX,centerY - 3, "Tryk på R for at genstarte.");
-                StdDraw.text(centerX,centerY - 3.5, "Tryk på Q for at forlade spillet.");
             }
 
+            StdDraw.setPenColor(StdDraw.YELLOW);
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 28));
+            StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
+            
+            StdDraw.setPenColor(StdDraw.WHITE);
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+            StdDraw.text(centerX,centerY - 2, "Du har nu følgende muligheder:");
+            StdDraw.text(centerX,centerY - 3, "Tryk på R for at genstarte.");
+            StdDraw.text(centerX,centerY - 3.5, "Tryk på Q for at forlade spillet.");
+            
             StdDraw.show();       
              
             waitForGameOverInput();
