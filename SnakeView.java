@@ -55,7 +55,7 @@ public class SnakeView {
 
     private void drawScore(int score){
         StdDraw.setPenColor(Color.BLACK);
-        StdDraw.setFont(new Font("Arial", Font.BOLD,16));
+        StdDraw.setFont(new Font("Arial", Font.BOLD,18));
         StdDraw.textLeft(0.5,m-0.5,"Score:" + score);
     }
 }
