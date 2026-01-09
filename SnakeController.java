@@ -177,18 +177,14 @@ public class SnakeController {
             if (wasNewHighScore){
                 StdDraw.setPenColor(StdDraw.YELLOW);
                 StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 28));
-                StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
+                StdDraw.text(centerX, centerY - 2, "Dit bedste:" + highscore);
             }
-
-            StdDraw.setPenColor(StdDraw.YELLOW);
-            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 24));
-            StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
             
             StdDraw.setPenColor(StdDraw.WHITE);
             StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
-            StdDraw.text(centerX,centerY - 2, "Du har nu følgende muligheder:");
-            StdDraw.text(centerX,centerY - 3, "Tryk på R for at genstarte.");
-            StdDraw.text(centerX,centerY - 3.5, "Tryk på Q for at forlade spillet.");
+            StdDraw.text(centerX,centerY - 3.5, "Du har nu følgende muligheder:");
+            StdDraw.text(centerX,centerY - 5, "Tryk på R for at genstarte.");
+            StdDraw.text(centerX,centerY - 6, "Tryk på Q for at forlade spillet.");
             
             StdDraw.show();       
              
@@ -203,7 +199,7 @@ public class SnakeController {
                     if (key=='R'||key=='r'){
                         resetGame();
                         break;
-                    } else if (key == 'Q' || key=='Q'){
+                    } else if (key == 'Q' || key=='q'){
                         System.exit(0);
                     }
                 }
