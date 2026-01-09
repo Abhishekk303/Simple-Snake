@@ -15,7 +15,7 @@ public class SnakeView {
         StdDraw.show(0);
     }
 
-    public void draw(SnakeModel model, boolean isPaused) {
+    public void draw(SnakeModel model, boolean isPaused, int score ) {
         StdDraw.clear(Color.WHITE);
 
         // Tegning af slangen
@@ -30,6 +30,8 @@ public class SnakeView {
 
         StdDraw.setPenColor(Color.RED);
         StdDraw.filledCircle(model.food[0]+ 0.5, model.food[1]+0.5,0.3);
+
+        drawScore(score);
 
         if (isPaused){
             drawPauseScreen();
@@ -49,5 +51,11 @@ public class SnakeView {
         StdDraw.setPenColor(Color.WHITE);
         StdDraw.setFont(new Font("Arial", Font.PLAIN,20));
         StdDraw.text(n/2.0, m/2.0-1,"Tryk på P for at starte igen.");
+    }
+
+    private void drawScore(int score){
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.setFont(new Font("Arial", Font.BOLD,16));
+        StdDraw.textLeft(0.5,m-0.5,"Score:" + score);
     }
 }

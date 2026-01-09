@@ -6,6 +6,8 @@ public class SnakeController {
     private int score;
     private boolean hasEaten;
     private boolean isPaused = false;
+    private int highscore = 0;
+    private boolean isNewHighScore = false;
 
     public SnakeController(SnakeModel model, SnakeView view){
         this.model = model;
@@ -14,6 +16,8 @@ public class SnakeController {
         this.hasEaten = false;
         this.gameRunning = true;
         this.isPaused = false;
+        this.highscore = 0;
+        this.isNewHighScore = false;
 
         model.retning = 3; // Snaken starter med at bevæge sig mod venstre fordi opgaven beder om det.
     }
@@ -23,7 +27,7 @@ public class SnakeController {
         System.out.println("Move: W = Op,S = Ned, A = Venstre, D = Højre");    
         System.out.println("For at pause/forsætte spillet tryk P");
 
-        view.draw(model,isPaused);
+        view.draw(model,isPaused,score);
     
         while(gameRunning){
             checkPauseInput();
@@ -40,7 +44,7 @@ public class SnakeController {
                 }
             }
 
-            view.draw(model,isPaused);
+            view.draw(model,isPaused, score);
 
             try {
                 Thread.sleep(200);
@@ -137,10 +141,21 @@ public class SnakeController {
     }
 
     private void showGameOverScreen(){
+        if (score>highscore){
+            highscore = score;
+            isNewHighScore = true;
+            System.out.println("Ny highscore:" + highscore + "!");
+        } else{
+            isNewHighScore = false;
+        }
+        
             try {
                 Thread.sleep(800);
             }catch (InterruptedException e){}
 
+            double centerX = model.bredde/2.0;
+            double centerY = model.hoejde/2.0;
+            
             StdDraw.clear(StdDraw.BLACK);
 
             StdDraw.setPenColor(StdDraw.RED);
@@ -151,8 +166,53 @@ public class SnakeController {
             StdDraw.setFont(new java.awt.Font("Times New Roman", java.awt.Font.PLAIN,28));
             StdDraw.text(model.bredde /2.0, model.hoejde / 2.0 - 0.5, "Score:" + score);
             
-            StdDraw.show();            
+            if (isNewHighScore){
+                StdDraw.setPenColor(StdDraw.YELLOW);
+                StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 28));
+                StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
+                StdDraw.text(centerX,centerY - 2, "Du har nu følgende muligheder:");
+                StdDraw.text(centerX,centerY - 3, "Tryk på R for at genstarte.");
+                StdDraw.text(centerX,centerY - 3.5, "Tryk på Q for at forlade spillet.");
+            }
 
+            StdDraw.show();       
+             
+            waitForGameOverInput();
+        }
+        
+        private void waitForGameOverInput(){
+            while (true) { 
+                if (StdDraw.hasNextKeyTyped()){
+                    char key = StdDraw.nextKeyTyped();
+                    
+                    if (key=='R'||key=='r'){
+                        resetGame();
+                        break;
+                    } else if (key == 'Q' || key=='Q'){
+                        System.exit(0);
+                    }
+                }
+            
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {}
+            }
+        }
+    
+    private void resetGame(){
+        score = 0;
+        hasEaten = false;
+        gameRunning = true;
+        isNewHighScore = false;
 
+        model.slange.clear();
+        int startX = model.bredde/2;
+        int startY = model.hoejde/2;
+        model.slange.add(new int[]{startX,startY});
+        model.slange.add(new int [] {startX, startY + 1});
+        model.retning = 3;
+        model.food();
+
+        startGame();
     }
 }
