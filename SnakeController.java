@@ -180,7 +180,7 @@ public class SnakeController {
             StdDraw.text(centerX, centerY - 1.5, "Dit bedste:" + highscore);
             
             StdDraw.setPenColor(StdDraw.WHITE);
-            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+            StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 1));
             StdDraw.text(centerX,centerY - 2, "Du har nu følgende muligheder:");
             StdDraw.text(centerX,centerY - 3, "Tryk på R for at genstarte.");
             StdDraw.text(centerX,centerY - 3.5, "Tryk på Q for at forlade spillet.");
