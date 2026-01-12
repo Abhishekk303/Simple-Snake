@@ -8,6 +8,7 @@ public class SnakeController {
     private boolean isPaused = false;
     private int highscore = 0;
     private boolean isNewHighScore = false;
+    private int gameSpeed;
 
     public SnakeController(SnakeModel model, SnakeView view){
         this.model = model;
@@ -18,6 +19,8 @@ public class SnakeController {
         this.isPaused = false;
         this.highscore = 0;
         this.isNewHighScore = false;
+        this.gameSpeed = 200;
+
 
         model.retning = 3; // Snaken starter med at bevæge sig mod venstre fordi opgaven beder om det.
     }
@@ -52,7 +55,7 @@ public class SnakeController {
             view.draw(model,isPaused, score);
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(gameSpeed);
             } catch (InterruptedException e) {
             }
         }
@@ -100,6 +103,12 @@ public class SnakeController {
         if (head[0] == model.food[0] && head[1] == model.food[1]){
             score++;
             System.out.println("Spist! Score: " + score);
+
+            if (gameSpeed > 50) {
+                gameSpeed = gameSpeed - 5;
+                System.out.println("Speed increased! Delay is now: " + gameSpeed + "ms");
+            }
+
             model.food();
             hasEaten = true;
         } else {
@@ -119,10 +128,10 @@ public class SnakeController {
             case 3: newX = head[0] - 1; break;
         }
 
-        if (newX <0) newX = model.bredde - 1;
-        if (newX >= model.bredde) newX = 0;
-        if (newY <0) newY = model.hoejde - 1;
-        if (newY >= model.hoejde) newY = 0;
+        if (newX <0) newX = model.width - 1;
+        if (newX >= model.width) newX = 0;
+        if (newY <0) newY = model.height - 1;
+        if (newY >= model.height) newY = 0;
 
         int[] newHead = new int[] {newX, newY};
         model.slange.add(0,newHead);
@@ -161,18 +170,18 @@ public class SnakeController {
                 Thread.sleep(800);
             }catch (InterruptedException e){}
 
-            double centerX = model.bredde/2.0;
-            double centerY = model.hoejde/2.0;
+            double centerX = model.width/2.0;
+            double centerY = model.height/2.0;
 
             StdDraw.clear(StdDraw.BLACK);
 
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD,33));
-            StdDraw.text(model.bredde / 2.0, model.hoejde / 2.0 + 1, "GAME OVER!");
+            StdDraw.text(model.width / 2.0, model.height / 2.0 + 1, "GAME OVER!");
 
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.setFont(new java.awt.Font("Times New Roman", java.awt.Font.PLAIN,28));
-            StdDraw.text(model.bredde /2.0, model.hoejde / 2.0 - 0.5, "Score:" + score);
+            StdDraw.text(model.width /2.0, model.height / 2.0 - 0.5, "Score:" + score);
             
             if (wasNewHighScore){
                 StdDraw.setPenColor(StdDraw.YELLOW);
@@ -216,9 +225,10 @@ public class SnakeController {
         gameRunning = true;
         isNewHighScore = false;
 
+        gameSpeed = 200;
         model.slange.clear();
-        int startX = model.bredde/2;
-        int startY = model.hoejde/2;
+        int startX = model.width/2;
+        int startY = model.height/2;
         model.slange.add(new int[]{startX,startY});
         model.slange.add(new int [] {startX, startY + 1});
         model.retning = 3;
@@ -228,7 +238,7 @@ public class SnakeController {
     }
     
     private boolean checkVictory(){
-        int maxCells = model.bredde * model.hoejde;
+        int maxCells = model.width * model.height;
         return model.slange.size() >= maxCells;
     }
 

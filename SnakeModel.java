@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SnakeModel {
-    public int bredde, hoejde;
+    public int width, height;
     public ArrayList<int[]> slange; 
     public int[] food;
     public int retning;
@@ -11,8 +11,8 @@ public class SnakeModel {
     private Random rand = new Random();
 
     public SnakeModel(int n, int m) {
-        this.bredde = n;
-        this.hoejde = m;
+        this.width = n;
+        this.height = m;
         this.slange = new ArrayList<>();
 
         // Start position midt på skærmen
@@ -27,8 +27,8 @@ public class SnakeModel {
 
     public void food() {
         while (true) {
-            int x = rand.nextInt(bredde);
-            int y = rand.nextInt(hoejde);
+            int x = rand.nextInt(width);
+            int y = rand.nextInt(height);
             
             // Sørg for at æblet ikke spawner inde i selve slangen
             boolean optaget = false;
