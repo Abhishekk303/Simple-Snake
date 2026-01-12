@@ -122,7 +122,7 @@ public class SnakeView {
                 }
 
             } else {
-                //Krop farve: Lyseblå
+                //Krop farve:Lyseblå
                 StdDraw.setPenColor(new Color(0, 100, 200));
                 StdDraw.filledCircle(x, y, 0.45);
             }
