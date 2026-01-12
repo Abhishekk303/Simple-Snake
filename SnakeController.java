@@ -82,7 +82,7 @@ public class SnakeController {
         }
     }
     
-    private void handleInput(){ // WASD-tasterne for at bevæge slangen i adskillige retninger.
+    private void handleInput(){ // WASD-tasterne for at bevæge slangen i adskillige retninger
         if (StdDraw.hasNextKeyTyped()){
             char key = StdDraw.nextKeyTyped();
             
