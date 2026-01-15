@@ -46,6 +46,7 @@ public class SnakeController {
                 moveSnake();
             
                 if (checkCollision()){
+                    model.pauseGame();
                     gameRunning = false;
                     showGameOverScreen();
                     break;
@@ -74,11 +75,16 @@ public class SnakeController {
         }
     }
 
-    public void togglePause(){
+    public void togglePause() {
         isPaused =! isPaused;
+
         if (isPaused){
+            model.pauseGame();
             System.out.println("Spillet er pauset.");
             System.out.println("Tryk P igen for at forsætte spillet.");
+        } else {
+            model.resumeGame();
+            System.out.println("Spillet fortsætter.");
         }
     }
     
@@ -243,6 +249,7 @@ public class SnakeController {
     }
 
     private void gameWon(){
+        model.pauseGame();
         model.victory = true;
         view.draw(model, isPaused,score);
         view.displayVictory(score);

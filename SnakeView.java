@@ -20,6 +20,18 @@ public class SnakeView {
     public void draw(SnakeModel model, boolean isPaused, int score ) {
 
         drawHeader(score);
+        
+        int seconds = model.getElapsedTime();
+        int minutes = seconds / 60;
+        int rest = seconds % 60;
+        String timeText = String.format("Tid: %02d:%02d", minutes, rest);
+        
+        double headerY = m + 1.0;
+        StdDraw.setPenColor(Color.WHITE);
+        StdDraw.setFont(new Font("Arial", Font.BOLD, 18));
+        StdDraw.textLeft(3.5, headerY, timeText);
+
+
 
         //tegning af baggrund. Et græs mønster
         //Hvis græsset er for laggy, kan vi ændre tilbage til en mere plain farve her

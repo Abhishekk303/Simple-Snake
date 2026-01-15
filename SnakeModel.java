@@ -10,6 +10,12 @@ public class SnakeModel {
 
     private Random rand = new Random();
 
+    //  Stopur / timer
+    private long startTime;
+    private long pauseStartTime;
+    private long totalPausedTime;
+    private boolean paused;
+
     public SnakeModel(int n, int m) {
         this.width = n;
         this.height = m;
@@ -23,6 +29,35 @@ public class SnakeModel {
         slange.add(new int[] { startX, startY + 1 }); // Haleled
 
         food();
+
+        //  start tid
+        startTime = System.currentTimeMillis();
+        totalPausedTime = 0;
+        paused = false;
+    }
+
+    // ⏱Forløbet tid i sekunder (pausetid tæller ikke med)
+    public int getElapsedTime() {
+        long now = paused ? pauseStartTime : System.currentTimeMillis();
+        return (int) ((now - startTime - totalPausedTime) / 1000);
+    }
+
+    public void pauseGame() {
+        if (!paused) {
+            paused = true;
+            pauseStartTime = System.currentTimeMillis();
+        }
+    }
+
+    public void resumeGame() {
+        if (paused) {
+            paused = false;
+            totalPausedTime += System.currentTimeMillis() - pauseStartTime;
+        }
+    }
+
+    public boolean isPaused() {
+        return paused;
     }
 
     public void food() {
