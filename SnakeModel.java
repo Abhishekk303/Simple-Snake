@@ -3,14 +3,14 @@ import java.util.Random;
 
 public class SnakeModel {
     public int width, height;
-    public ArrayList<int[]> slange; 
+    public ArrayList<int[]> slange;
     public int[] food;
     public int retning;
     public boolean victory = false;
 
     private Random rand = new Random();
 
-    //  Stopur / timer
+    // Stopur / timer
     private long startTime;
     private long pauseStartTime;
     private long totalPausedTime;
@@ -25,18 +25,18 @@ public class SnakeModel {
         int startX = n / 2;
         int startY = m / 2;
 
-        slange.add(new int[] { startX, startY });     // Hoved
+        slange.add(new int[] { startX, startY }); // Hoved
         slange.add(new int[] { startX, startY + 1 }); // Haleled
 
         food();
 
-        //  start tid
+        // start tid
         startTime = System.currentTimeMillis();
         totalPausedTime = 0;
         paused = false;
     }
 
-    // ⏱Forløbet tid i sekunder (pausetid tæller ikke med)
+    // Pausetid tæller ikke med
     public int getElapsedTime() {
         long now = paused ? pauseStartTime : System.currentTimeMillis();
         return (int) ((now - startTime - totalPausedTime) / 1000);
@@ -64,7 +64,7 @@ public class SnakeModel {
         while (true) {
             int x = rand.nextInt(width);
             int y = rand.nextInt(height);
-            
+
             // Sørg for at æblet ikke spawner inde i selve slangen
             boolean optaget = false;
             for (int[] del : slange) {
@@ -73,7 +73,7 @@ public class SnakeModel {
                     break;
                 }
             }
-            
+
             if (!optaget) {
                 food = new int[] { x, y };
                 break;
